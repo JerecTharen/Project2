@@ -1,0 +1,57 @@
+body, html {
+    height: 100%;
+    width: 100%;
+}
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-color: #03120e;
+    color: ghostwhite;
+}
+
+
+
+.container {
+    display:flex;
+    height: 80%;
+    width: 80%;
+    margin: auto;
+}
+.bigDate {
+    width: 50%;
+    height: 100%;
+    font-size: xx-large;
+    border: solid 2px ghostwhite;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.bigDate h2, .makegreen {
+    color: #4CAF50;
+}
+.bigDate p {
+    font-size: 400px;
+    padding: 0;
+    margin: 0;
+}
+.calender {
+    margin-left: 1em;
+    width: 50%;
+    height: 100%;
+    font-size: xx-large;
+}
+.calender table {
+    border: solid 2px ghostwhite;
+    height: 100%;
+    width: 100%;
+    padding: 1em;
+}
+th, td {
+    margin: .5em;
+    text-align: center;
+}
+td:hover {
+    font-size: larger;
+}
