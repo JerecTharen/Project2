@@ -1,5 +1,6 @@
 let theDate = new Date();
 let thisMonth = theDate.getMonth();
+let firstOfMonth = theDate.setDate(1);
 function fillContent(theID, theContent){
     return document.getElementById(theID).innerHTML = theContent;
 }
@@ -80,4 +81,5 @@ function myFunc(childNumb, element) {
         default:
             console.log("error in month");
     }
+    console.log(firstOfMonth);
 })(thisMonth);
