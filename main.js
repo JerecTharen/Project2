@@ -7,7 +7,23 @@ function toMakeGreen(element){
     let listItems = myTaskList.getElementsByTagName("li");
     let checkers = myTaskList.getElementsByTagName("input");
     let idNum = element.id.slice(7);
-    document.getElementById(`myItem${idNum}`).setAttribute("class","makegreen");
+
+    if (document.getElementById(`myCheck${idNum}`).checked){
+        document.getElementById(`myItem${idNum}`).setAttribute("class","makegreen");
+    }
+    else {
+        document.getElementById(`myItem${idNum}`).setAttribute("class","");
+    }
+
+    // switch(document.getElementById(`myCheck${idNum}`).checked){
+    //     case false:
+    //         document.getElementById(`myItem${idNum}`).setAttribute("class","makegreen");
+    //         break;
+    //     case true:
+    //         document.getElementById(`myItem${idNum}`).setAttribute("class","");
+    //         break;
+    // }
+    // document.getElementById(`myItem${idNum}`).setAttribute("class","makegreen");
 
 
 }
