@@ -55,3 +55,17 @@ th, td {
 td:hover {
     font-size: larger;
 }
+.taskSpace {
+    display: flex;
+}
+.delStyle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+#indexContainer {
+    height: auto;
+}
+ul {
+    margin: 0;
+}
