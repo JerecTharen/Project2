@@ -35,6 +35,19 @@ function delTask(taskNum){
 
     myTaskList.innerHTML = "";
     myDelBtns.innerHTML = "";
+    let isGreen= [];
+    switch(theList.length){
+        case 1:
+            break;
+        default:
+            for (let y = 0; y < theList.length-1; y ++) {
+                if (document.getElementById(`myItem${y}`).className !== "") {
+                    isGreen.push(y);
+                }
+                console.log(isGreen);
+            }
+            break;
+    }
     for (let i = 0; i < theList.length; i ++){
         myTaskList.innerHTML += theList[i];
         myDelBtns.innerHTML += delBtnList[i];
@@ -56,6 +69,11 @@ function delTask(taskNum){
     }
     console.log(myTaskList.innerHTML);
     console.log(myDelBtns.innerHTML);
+}
+
+function editTask(taskNum){
+    theList[taskNum] = `<li>${myUserInput.value}</li>`;
+
 }
 
 function addToList(){
