@@ -1,6 +1,12 @@
 let theDate = new Date();
 let thisMonth = theDate.getMonth();
-let firstOfMonth = theDate.setDate(1);
+let thisYear = theDate.getFullYear();
+let firstOfMonth = new Date(`${thisMonth + 1}/1/${thisYear}`);
+let lastOfMonth = new Date(`${thisMonth + 2}/0/${thisYear}`);
+console.log(firstOfMonth);
+let firstDay = firstOfMonth.getDay();
+let lastDay = lastOfMonth.getDay();
+console.log(`${firstDay}, ${lastDay}`);
 function fillContent(theID, theContent){
     return document.getElementById(theID).innerHTML = theContent;
 }
@@ -83,3 +89,4 @@ function myFunc(childNumb, element) {
     }
     console.log(firstOfMonth);
 })(thisMonth);
+//35 td's
