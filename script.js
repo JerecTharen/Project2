@@ -2,11 +2,11 @@ let theDate = new Date();
 let thisMonth = theDate.getMonth();
 let thisYear = theDate.getFullYear();
 let firstOfMonth = new Date(`${thisMonth + 1}/1/${thisYear}`);
-let lastOfMonth = new Date(`${thisMonth + 2}/0/${thisYear}`);
+let lastOfMonth = new Date(`${thisMonth + 2}/1/${thisYear}`);
 console.log(firstOfMonth);
 let firstDay = firstOfMonth.getDay();
 let lastDay = lastOfMonth.getDay();
-console.log(`${firstDay}, ${lastDay}`);
+console.log(`${firstDay}, ${lastDay-1}`);
 function fillContent(theID, theContent){
     return document.getElementById(theID).innerHTML = theContent;
 }
@@ -90,3 +90,11 @@ function myFunc(childNumb, element) {
     console.log(firstOfMonth);
 })(thisMonth);
 //35 td's
+function fillCal(){
+    for (let index = firstDay, indexDate = 1; index < document.getElementsByTagName("td").length-(7-lastDay);index++,indexDate++){
+        let loopDate = new Date(`${thisMonth+1}/${indexDate}/${thisYear}`);
+        document.getElementsByTagName("td")[index].innerHTML = indexDate.toString();
+        document.getElementsByTagName("td")[index].setAttribute("onclick", `myFunc(${loopDate.getDay()+1}, this)`)
+    }
+}
+fillCal();
