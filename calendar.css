@@ -21,21 +21,39 @@ body {
 .bigDate {
     width: 50%;
     height: 100%;
-    font-size: xx-large;
+    /*font-size: xx-large;*/
     border: solid 2px ghostwhite;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    /*justify-content: center;*/
+    /*align-items: center;*/
 }
-.bigDate h2, .makegreen {
+.bigDate h1, .makegreen {
     color: #4CAF50;
 }
-.bigDate p {
-    font-size: 400px;
-    padding: 0;
-    margin: 0;
+.BDTop {
+    display: flex;
+    margin: 0 auto;
 }
+.BDTop h1 {
+    margin: 0 .25em;
+}
+.listSpace {
+    display: flex;
+    width: 100%;
+}
+#userSpace {
+    width: 50%;
+}
+.nameAndDone {
+    display: flex;
+}
+/*.bigDate p {*/
+    /*font-size: 400px;*/
+    /*padding: 0;*/
+    /*margin: 0;*/
+/*}*/
 .calender {
     margin-left: 1em;
     width: 50%;
