@@ -32,6 +32,9 @@ body {
 .bigDate h1, .makegreen {
     color: #4CAF50;
 }
+.striker {
+    text-decoration: line-through;
+}
 .BDTop {
     display: flex;
     margin: 0 auto .5em auto;
