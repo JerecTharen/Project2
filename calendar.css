@@ -45,9 +45,26 @@ body {
 }
 #userSpace {
     width: 50%;
+    border: 2px solid ghostwhite;
+    padding: .5em;
+    margin: .5em;
+}
+.listBox {
+    /*background-color: #4CAF50;*/
+    border: 2px solid ghostwhite;
+    color: ghostwhite;
+    padding: .1em;
+    margin: .2em;
 }
 .nameAndDone {
     display: flex;
+}
+li h3 {
+    margin: auto .2em;
+}
+i {
+    margin-left: .2em;
+    margin-right: .2em;
 }
 /*.bigDate p {*/
     /*font-size: 400px;*/

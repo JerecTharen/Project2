@@ -96,6 +96,7 @@ function fillCal(){
         document.getElementsByTagName("td")[index].innerHTML = indexDate.toString();
         document.getElementsByTagName("td")[index].setAttribute("onclick", `myFunc(${loopDate.getDay()+1}, this)`)
     }
+    myFunc(theDate.getDay()+1,document.getElementsByTagName("td")[theDate.getDate()]);
 }
 fillCal();
 

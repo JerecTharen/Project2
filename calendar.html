@@ -2,10 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
     <link rel="stylesheet" href="calendar.css" type="text/css">
     <title>Calender</title>
 
-    <script src="./script.js" defer>
+    <script src="./script.js" type="text/javascript" defer>
+
+    </script>
+    <script src="./cmain.js" type="text/javascript" defer>
 
     </script>
 </head>
@@ -27,53 +31,46 @@
                     </textarea>
                     <label for="taskTime">Remind me at: </label>
                     <input type="time" id="taskTime">
-                    <button onclick="tester()">SUBMIT TASK</button>
+                    <button onclick="addTask()">SUBMIT TASK</button>
                 </div>
                 <div id="listHere">
-                    <ol>
+                    <div id="allLists">
+                        <i onclick="addList()" class="far fa-plus-square"></i>
+                    </div>
+                    <ol id="allTasks">
                         <li>
                             <div class="nameAndDone">
-                                <input type="checkbox"><h3>Lorem Ipsum</h3>
-                            </div>
-                            <div>
-                                <button>DELETE TASK</button>
-                                <button>EDIT TASK</button>
+                                <i class="far fa-square"></i><h3>Lorem Ipsum</h3>
+                                <i class="fas fa-trash-alt"></i>
+                                <i class="far fa-edit"></i>
                             </div>
                         </li>
                         <li>
                             <div class="nameAndDone">
-                                <input type="checkbox"><h3>Lorem Ipsum</h3>
-                            </div>
-                            <div>
-                                <button>DELETE TASK</button>
-                                <button>EDIT TASK</button>
+                                <i class="far fa-square"></i><h3>Lorem Ipsum</h3>
+                                <i class="fas fa-trash-alt"></i>
+                                <i class="far fa-edit"></i>
                             </div>
                         </li>
                         <li>
                             <div class="nameAndDone">
-                                <input type="checkbox"><h3>Lorem Ipsum</h3>
-                            </div>
-                            <div>
-                                <button>DELETE TASK</button>
-                                <button>EDIT TASK</button>
+                                <i class="far fa-square"></i><h3>Lorem Ipsum</h3>
+                                <i class="fas fa-trash-alt"></i>
+                                <i class="far fa-edit"></i>
                             </div>
                         </li>
                         <li>
                             <div class="nameAndDone">
-                                <input type="checkbox"><h3>Lorem Ipsum</h3>
-                            </div>
-                            <div>
-                                <button>DELETE TASK</button>
-                                <button>EDIT TASK</button>
+                                <i class="far fa-square"></i><h3>Lorem Ipsum</h3>
+                                <i class="fas fa-trash-alt"></i>
+                                <i class="far fa-edit"></i>
                             </div>
                         </li>
                         <li>
                             <div class="nameAndDone">
-                                <input type="checkbox"><h3>Lorem Ipsum</h3>
-                            </div>
-                            <div>
-                                <button>DELETE TASK</button>
-                                <button>EDIT TASK</button>
+                                <i class="far fa-square"></i><h3>Lorem Ipsum</h3>
+                                <i class="fas fa-trash-alt"></i>
+                                <i class="far fa-edit"></i>
                             </div>
                         </li>
                     </ol>
