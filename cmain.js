@@ -16,6 +16,9 @@ class TaskList {
         this.tasks = tasks;
         this.date = date;
     }
+    findsList(){
+
+    }
 }
 
 class ToDoItem {
@@ -24,6 +27,9 @@ class ToDoItem {
         this.done = done;
         this.time = time;
         this.description = description;
+    }
+    markComplted(){
+        this.done = true;
     }
 }
 
@@ -45,6 +51,7 @@ function addList(){
         // window.localStorage.setItem('all',allLists);
         // console.log(allLists);
     }
+    localStorage.setItem('the tasks',JSON.stringify(allLists));
 }
 
 
@@ -67,6 +74,7 @@ function addTask(){
         domTasks.innerHTML += `<li><div class="nameAndDone"><i onclick="completeTask(this)" class="far fa-square"></i><h3>${allLists[theList].tasks[i].itemName}</h3><i onclick="remover(this)" class="fas fa-trash-alt"></i><i onclick="editor(this)" class="far fa-edit"></i></div></li>`;
     }
     clearFields();
+    localStorage.setItem('the tasks',JSON.stringify(allLists));
 }
 
 
