@@ -8,6 +8,8 @@ function clearFields(){
     document.getElementById("taskTime").value = "";
 }
 clearFields();
+
+
 class TaskList {
     constructor(listName,tasks,date){
         this.listName= listName;
@@ -15,6 +17,7 @@ class TaskList {
         this.date = date;
     }
 }
+
 class ToDoItem {
     constructor(itemName, done, time,description){
         this.itemName = itemName;
@@ -23,6 +26,7 @@ class ToDoItem {
         this.description = description;
     }
 }
+
 
 function addList(){
     var dateNum = document.getElementById("largeDay").innerHTML;
@@ -42,6 +46,8 @@ function addList(){
         // console.log(allLists);
     }
 }
+
+
 function addTask(){
     var dateNum = document.getElementById("largeDay").innerHTML;
     var monthName = document.getElementById("monthHere").innerHTML;
@@ -58,10 +64,12 @@ function addTask(){
     // console.log(allLists[theList]);
     domTasks.innerHTML = "";
     for (let i = 0; i < allLists[theList].tasks.length; i++){
-        domTasks.innerHTML += `<li><div class="nameAndDone"><i onclick="completeTask(this)" class="far fa-square"></i><h3>${allLists[theList].tasks[i].itemName}</h3><i class="fas fa-trash-alt"></i><i class="far fa-edit"></i></div></li>`;
+        domTasks.innerHTML += `<li><div class="nameAndDone"><i onclick="completeTask(this)" class="far fa-square"></i><h3>${allLists[theList].tasks[i].itemName}</h3><i onclick="remover(this)" class="fas fa-trash-alt"></i><i onclick="editor(this)" class="far fa-edit"></i></div></li>`;
     }
     clearFields();
 }
+
+
 function completeTask(element){
     var dateNum = document.getElementById("largeDay").innerHTML;
     var monthName = document.getElementById("monthHere").innerHTML;
@@ -71,13 +79,50 @@ function completeTask(element){
         if (allLists[i].date === date){}
         theList = i;
     }
-    element.setAttribute("class","far fa-check-square");
+    var theTask = undefined;
     var taskNamer = element.parentElement.getElementsByTagName("h3")[0];
     for (let i = 0; i < allLists[theList].tasks.length;i++){
         if (allLists[theList].tasks[i].itemName === taskNamer.innerHTML){
-            allLists[theList].tasks[i].done = true;
-            taskNamer.setAttribute("class","makegreen striker");
+            theTask = i;
         }
     }
+    if (allLists[theList].tasks[theTask].done === false){
+        taskNamer.setAttribute("class","");
+        element.setAttribute("class","far fa-check-square");
+        allLists[theList].tasks[theTask].done = true;
+        taskNamer.setAttribute("class","makegreen striker");
+    }
+    else if(allLists[theList].tasks[theTask].done === true){
+        taskNamer.setAttribute("class","");
+        element.setAttribute("class","far fa-square");
+        allLists[theList].tasks[theTask].done = false;
+    }
+}
 
+function editor(element){
+
+}
+
+
+function remover(element){
+    var dateNum = document.getElementById("largeDay").innerHTML;
+    var monthName = document.getElementById("monthHere").innerHTML;
+    var date = `${monthName}/${dateNum}`;
+    var theList = undefined;
+    for (let i = 0;i <allLists.length;i++){
+        if (allLists[i].date === date){}
+        theList = i;
+    }
+    var theTask = undefined;
+    var taskNamer = element.parentElement.getElementsByTagName("h3")[0];
+    for (let i = 0; i < allLists[theList].tasks.length;i++){
+        if (allLists[theList].tasks[i].itemName === taskNamer.innerHTML){
+            theTask = i;
+        }
+    }
+    allLists[theList].tasks.splice(theTask,1);
+    domTasks.innerHTML = "";
+    for (let i = 0; i < allLists[theList].tasks.length; i++){
+        domTasks.innerHTML += `<li><div class="nameAndDone"><i onclick="completeTask(this)" class="far fa-square"></i><h3>${allLists[theList].tasks[i].itemName}</h3><i onclick="remover(this)" class="fas fa-trash-alt"></i><i onclick="editor(this)" class="far fa-edit"></i></div></li>`;
+    }
 }
