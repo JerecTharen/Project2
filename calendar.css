@@ -34,6 +34,7 @@ body {
 }
 .striker {
     text-decoration: line-through;
+    color: #4CAF50;
 }
 .BDTop {
     display: flex;

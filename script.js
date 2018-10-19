@@ -14,9 +14,9 @@ function fillContent(theID, theContent){
 function myFunc(childNumb, element) {
     // console.log(element);
     // console.log(document.querySelectorAll("td"));
-    let myVar = document.querySelectorAll("td");
+    var myVar = document.querySelectorAll("td");
     // console.log(myVar);
-    let myVarL = myVar.length;
+    var myVarL = myVar.length;
     // console.log(myVarL);
     for (let i = 0; i < myVarL; i++){
         myVar[i].setAttribute("class", "");
@@ -45,6 +45,10 @@ function myFunc(childNumb, element) {
     else if (childNumb == 7) {
         document.getElementById("largeDayName").innerHTML = "Saturday";
     }
+    for (let x=0;x< allLists.length;x++){
+        allLists[x].active = false;
+    }
+    drawPage();
 }
 (function (month){
     switch(month){
