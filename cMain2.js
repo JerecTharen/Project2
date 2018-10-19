@@ -7,11 +7,12 @@ class MyData {
 }
 
 class TaskList {
-    constructor(listID, listName,tasks,date){
+    constructor(listID, listName,tasks,date,active){
         this.listID = listID;
         this.listName= listName;
         this.tasks = tasks;
         this.date = date;
+        this.active = active;
     }
     changeLName(){
         this.listName = prompt("Please enter a list name");
@@ -67,13 +68,18 @@ var theData = new MyData(listNum,taskNum,allLists);
 (function(){
     if (localStorage.getItem("jerecsCalendar") !== null){
         let tempVar = localStorage.getItem("jerecsCalendar");
-        sessionData = JSON.parse(tempVar);
-        listNum = sessionData.numOfLists;
-        taskNum = sessionData.numOfTasks;
-        allLists = sessionData.theData;
+        let localData = JSON.parse(tempVar);
+        listNum = localData.numOfLists;
+        taskNum = localData.numOfTasks;
+        allLists = localData.theData;
     }
 
 })();
+
+function setStorage(){
+    var temp = new MyData(listNum,taskNum,allLists);
+    localStorage.setItem('jerecsCalendar',JSON.stringify(temp));
+}
 
 
 function clearFields(){
@@ -90,10 +96,15 @@ function grabDate(){
 
 
 function addList(){
-    allLists.push(new TaskList(listNum,prompt('Please Enter a Name For your List'),[],grabDate()));
+    for (let i = 0;i < allLists.length;i++){
+        allLists[i].active = false;
+    }
+    allLists.push(new TaskList(listNum,prompt('Please Enter a Name For your List'),[],grabDate(),true));
+    currentList = listNum;
     listNum++;
-    localStorage.setItem('jerecsCalendar',JSON.stringify(allLists));
+    setStorage();
     clearFields();
+    drawPage();
 }
 
 function switchList(element){
@@ -101,8 +112,33 @@ function switchList(element){
 }
 
 function addTask(){
+    for (let i = 0;i < allLists.length;i++){
+        allLists[i].active = false;
+    }
     allLists[currentList].tasks.push(new ToDoItem(taskNum,userTaskName.value,false,userTaskTime.value,userTaskDesc.value));
     taskNum++;
-    localStorage.setItem('jerecsCalendar',JSON.stringify(allLists));
+    for (let i = 0;i < allLists.length;i++){
+        allLists[i].active = false;
+    }
+    setStorage();
     clearFields();
+    drawPage();
 }
+
+function drawPage(){
+    domAllLists.innerHTML = "<i onclick='addList()' class='far fa-plus-square'></i>";
+    for (let i=0;i < allLists.length;i++){
+        if (allLists[i].date === `${monthName.innerHTML}/${dateNum.innerHTML}`){
+            if (allLists[i].active === true){
+                domAllLists.innerHTML += `<span id="list${allLists[i].listID}" class="listBox active">${allLists[i].listName}</span>`;
+            }
+            else{
+                domAllLists.innerHTML += `<span id="list${allLists[i].listID}" class="listBox">${allLists[i].listName}</span>`;
+            }
+        }
+    }
+    // for (let i=0;i<allLists.length;i++){
+    //     domAllLists.innerHTML += `<span class="listBox">${allLists[i].listName}</span>`;
+    // }
+}
+drawPage();
