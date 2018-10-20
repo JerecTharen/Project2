@@ -2,34 +2,119 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="./calendar.css" type="text/css">
-    <!--<script src="./main.js" type="text/javascript" defer>-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <title>Calender</title>
+
+
+    <!--<script src="./cmain.js" type="text/javascript" defer>-->
 
     <!--</script>-->
-    <script src="./mainTwo.js" type="text/javascript" defer>
+    <script src="main.js" type="text/javascript" defer>
 
     </script>
-    <title>To Do List</title>
+    <!--<script src="./script.js" type="text/javascript" defer>-->
+
+    <!--</script>-->
 </head>
 <body>
 
-    <div class="container" id="indexContainer">
+    <div class="container">
+        <div class="bigDate">
+            <div class="BDTop">
+                <h1 id="largeDayName">Wednesday</h1>
+                <h1 id="largeDay">23</h1>
+            </div>
+            <div class="listSpace">
+                <div id="userSpace">
+                    <label for="taskName">Task Name: </label>
+                    <input id="taskName" type="text">
+                    <label for="taskDescription">Description: </label>
+                    <textarea id="taskDescription" rows="10" cols="30" name="aboutSelf">
 
-        <div class="userSpace">
-            <label for="userInput">Add to your to-do list: </label>
-            <input type="text" id="userInput" name="addTask">
-            <button onclick="addToList()">ADD TASK</button>
+                    </textarea>
+                    <label for="taskTime">Remind me at: </label>
+                    <input type="time" id="taskTime">
+                    <button id="taskButton" onclick="addTask()">SUBMIT TASK</button>
+                </div>
+                <div id="listHere">
+                    <div id="allLists">
+                        <i onclick="addList()" class="far fa-plus-square"></i>
+                    </div>
+                    <ol id="allTasks">
+                        <li>
+                            You have no tasks set for this date.
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
         </div>
-
-        <div class="taskSpace">
-            <ol id="taskList">
-                <li>You have not added any tasks yet</li>
-            </ol>
-            <ul class="delStyle" id="delTasks">
-
-            </ul>
+        <div class="calender">
+            <table class="september">
+                <thead>
+                    <tr>
+                        <th id="monthHere" class="makegreen" colspan="7">< September 2015 ></th>
+                    </tr>
+                    <tr>
+                        <th>S</th>
+                        <th>M</th>
+                        <th>T</th>
+                        <th>W</th>
+                        <th>T</th>
+                        <th>F</th>
+                        <th>S</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td onclick="myFunc(3,this)">1</td>
+                        <td onclick="myFunc(4,this)">2</td>
+                        <td onclick="myFunc(5,this)">3</td>
+                        <td onclick="myFunc(6,this)">4</td>
+                        <td onclick="myFunc(7,this)">5</td>
+                    </tr>
+                    <tr>
+                        <td onclick="myFunc(1,this)">6</td>
+                        <td onclick="myFunc(2,this)">7</td>
+                        <td onclick="myFunc(3, this)">8</td>
+                        <td onclick="myFunc(4, this)">9</td>
+                        <td onclick="myFunc(5, this)">10</td>
+                        <td onclick="myFunc(6, this)">11</td>
+                        <td onclick="myFunc(7, this)">12</td>
+                    </tr>
+                    <tr>
+                        <td onclick="myFunc(1, this)">13</td>
+                        <td onclick="myFunc(2, this)">14</td>
+                        <td onclick="myFunc(3, this)">15</td>
+                        <td onclick="myFunc(4, this)">16</td>
+                        <td onclick="myFunc(5, this)">17</td>
+                        <td onclick="myFunc(6, this)">18</td>
+                        <td onclick="myFunc(7, this)">19</td>
+                    </tr>
+                    <tr>
+                        <td onclick="myFunc(1, this)">20</td>
+                        <td onclick="myFunc(2, this)">21</td>
+                        <td onclick="myFunc(3, this)">22</td>
+                        <td class="makegreen" onclick="myFunc(4, this)">23</td>
+                        <td onclick="myFunc(5, this)">24</td>
+                        <td onclick="myFunc(6, this)">25</td>
+                        <td onclick="myFunc(7, this)">26</td>
+                    </tr>
+                    <tr>
+                        <td onclick="myFunc(1, this)">27</td>
+                        <td onclick="myFunc(2, this)">28</td>
+                        <td onclick="myFunc(3, this)">29</td>
+                        <td onclick="myFunc(4, this)">30</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-
     </div>
 
 </body>
