@@ -47,13 +47,13 @@ class ToDoItem {
         }
     }
     changeName(){
-        this.itemName = userTaskName.value;
+        this.itemName = prompt("Please Enter a new task name: ");
     }
     changeTime(){
-        this.time = userTaskTime.value;
+        this.time = prompt("Please Enter a new reminder time: ");
     }
     changeDesc(){
-        this.description = userTaskDesc;
+        this.description =  prompt("Please Enter a new task description: ");
     }
 }
 
@@ -69,28 +69,28 @@ var listNum = 0;
 var taskNum = 0;
 var allLists = [];
 var currentList = undefined;
-var theData = new MyData(listNum,taskNum,allLists);
+// var theData = new MyData(listNum,taskNum,allLists);
 (function(){
     if (localStorage.getItem("jerecsCalendar") !== null){
         let tempVar = localStorage.getItem("jerecsCalendar");
         let localData = JSON.parse(tempVar);
         listNum = localData.numOfLists;
         taskNum = localData.numOfTasks;
-        for (let i =0;i< listNum;i++){
-            allLists.push(new TaskList(localData.theData[i].listID,localData.theData[i].listName,[],localData.theData[i].date,localData.theData[i].active));
+        let thisData = new MyData(listNum,taskNum,localData.theData);
+        for (let i =0;i < listNum;i++){
+            allLists.push(new TaskList(thisData.theData[i].listID,thisData.theData[i].listName,[],thisData.theData[i].date,thisData.theData[i].active));
         }
         for (let x = 0;x<allLists.length;x++){
-            if (localData.theData[x] !== undefined){
-                for (let y =0; y< localData.theData[x].tasks[x].length;y++){
-                    if(localData.theData[x].tasks !== undefined){
-                        allLists[x].tasks.push(new ToDoItem(localData.theData[x].tasks[y].taskID,localData.theData[x].tasks[y].itemName,localData.theData[x].tasks[y].done,localData.theData[x].tasks[y].time,localData.theData[x].tasks[y].description));
+            if (thisData.theData[x] !== undefined){
+                for (let y =0; y < thisData.theData[x].tasks.length;y++){
+                    if(thisData.theData[x].tasks !== undefined){
+                        allLists[x].tasks.push(new ToDoItem(thisData.theData[x].tasks[y].taskID,thisData.theData[x].tasks[y].itemName,thisData.theData[x].tasks[y].done,thisData.theData[x].tasks[y].time,thisData.theData[x].tasks[y].description));
                     }
                 }
             }
         }
         // allLists = new TaskList(localData.theData.)localData.theData;
     }
-
 })();
 
 function setStorage(){
@@ -191,11 +191,47 @@ function completeTask(theID){
     for (let i = 0;i< allLists.length;i++){
         if (allLists[i].active === true){
             for (x=0;x<allLists[i].tasks.length;x++){
-                allLists[i].tasks[x].markCompleted();
+                if (allLists[i].tasks[x].taskID === theID){
+                    allLists[i].tasks[x].markCompleted();
+                }
+
             }
         }
     }
     drawPage();
+    setStorage();
+}
+
+function remover(theID){
+    for (let i = 0;i< allLists.length;i++){
+        if (allLists[i].active === true){
+            for (x=0;x<allLists[i].tasks.length;x++){
+                if (allLists[i].tasks[x].taskID === theID){
+                    allLists[i].tasks.splice(x,1);
+                }
+
+            }
+        }
+    }
+    drawPage();
+    setStorage();
+}
+
+function editor(theID){
+    for (let i = 0;i< allLists.length;i++){
+        if (allLists[i].active === true){
+            for (x=0;x<allLists[i].tasks.length;x++){
+                if (allLists[i].tasks[x].taskID === theID){
+                    allLists[i].tasks[x].changeName();
+                    allLists[i].tasks[x].changeTime();
+                    allLists[i].tasks[x].changeDesc();
+                }
+
+            }
+        }
+    }
+    drawPage();
+    setStorage();
 }
 
 
