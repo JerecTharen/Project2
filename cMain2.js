@@ -77,7 +77,7 @@ var currentList = undefined;
         listNum = localData.numOfLists;
         taskNum = localData.numOfTasks;
         let thisData = new MyData(listNum,taskNum,localData.theData);
-        for (let i =0;i < listNum;i++){
+        for (let i =0;i < thisData.theData.length;i++){
             allLists.push(new TaskList(thisData.theData[i].listID,thisData.theData[i].listName,[],thisData.theData[i].date,thisData.theData[i].active));
         }
         for (let x = 0;x<allLists.length;x++){
@@ -116,10 +116,10 @@ function drawPage(){
     for (let i=0;i < allLists.length;i++){
         if (allLists[i].date === `${monthName.innerHTML}/${dateNum.innerHTML}`){
             if (allLists[i].active === true){
-                domAllLists.innerHTML += `<span onclick="switchList(this)" id="list${allLists[i].listID}" class="listBox active">${allLists[i].listName}</span>`;
+                domAllLists.innerHTML += `<span class="listBox active"><span onclick="switchList(this)" id="list${allLists[i].listID}">${allLists[i].listName}</span><i onclick="removeList(${allLists[i].listID})" class="fas fa-times"></i><i onclick="listEditor(${allLists[i].listID})" class="far fa-edit"></i></span>`;
             }
             else{
-                domAllLists.innerHTML += `<span onclick="switchList(this)" id="list${allLists[i].listID}" class="listBox">${allLists[i].listName}</span>`;
+                domAllLists.innerHTML += `<span class="listBox"><span onclick="switchList(this)" id="list${allLists[i].listID}">${allLists[i].listName}</span><i onclick="removeList(${allLists[i].listID})" class="fas fa-times"></i><i onclick="listEditor(${allLists[i].listID})" class="far fa-edit"></i></span>`;
             }
         }
     }
@@ -128,10 +128,10 @@ function drawPage(){
         if (allLists[y].active === true){
             for (x=0;x<allLists[y].tasks.length;x++){
                 if (allLists[y].tasks[x].done === true){
-                    domTasks.innerHTML += `<li><div class="nameAndDone"><i onclick="completeTask(${allLists[y].tasks[x].taskID})" class="far fa-check-square"></i><h3 class="striker">${allLists[y].tasks[x].itemName}</h3><i onclick="remover(${allLists[y].tasks[x].taskID})" class="fas fa-trash-alt"></i><i onclick="editor(${allLists[y].tasks[x].taskID})" class="far fa-edit"></i></div></li>`;
+                    domTasks.innerHTML += `<li><div class="nameAndDone"><i onclick="completeTask(${allLists[y].tasks[x].taskID})" class="far fa-check-square"></i><h3 onclick="showDesc(${allLists[y].tasks[x].taskID})" class="striker">${allLists[y].tasks[x].itemName}</h3><i onclick="remover(${allLists[y].tasks[x].taskID})" class="fas fa-trash-alt"></i><i onclick="editor(${allLists[y].tasks[x].taskID})" class="far fa-edit"></i></div></li>`;
                 }
                 else{
-                    domTasks.innerHTML += `<li><div class="nameAndDone"><i onclick="completeTask(${allLists[y].tasks[x].taskID})" class="far fa-square"></i><h3>${allLists[y].tasks[x].itemName}</h3><i onclick="remover(${allLists[y].tasks[x].taskID})" class="fas fa-trash-alt"></i><i onclick="editor(${allLists[y].tasks[x].taskID})" class="far fa-edit"></i></div></li>`;
+                    domTasks.innerHTML += `<li><div class="nameAndDone"><i onclick="completeTask(${allLists[y].tasks[x].taskID})" class="far fa-square"></i><h3 onclick="showDesc(${allLists[y].tasks[x].taskID})">${allLists[y].tasks[x].itemName}</h3><i onclick="remover(${allLists[y].tasks[x].taskID})" class="fas fa-trash-alt"></i><i onclick="editor(${allLists[y].tasks[x].taskID})" class="far fa-edit"></i></div></li>`;
                 }
             }
         }
@@ -168,20 +168,38 @@ function switchList(element){
     drawPage();
 }
 
-function addTask(){
-    for (let i = 0;i < allLists.length;i++){
-        allLists[i].active = false;
+function removeList(theID){
+    for (let i = 0; i < allLists.length; i++){
+        if (allLists[i].listID === theID){
+            allLists.splice(i,1);
+        }
     }
-    allLists[currentList].tasks.push(new ToDoItem(taskNum,userTaskName.value,false,userTaskTime.value,userTaskDesc.value));
-    taskNum++;
+    drawPage();
+    setStorage();
+}
+
+function listEditor(theID){
+    for (let i = 0; i < allLists.length; i++){
+        if (allLists[i].listID === theID){
+            allLists[i].changeLName();
+        }
+    }
+    drawPage();
+    setStorage();
+}
+
+function addTask(){
     for (let i = 0;i < allLists.length;i++){
         allLists[i].active = false;
     }
     for (let i = 0;i < allLists.length;i++){
         if (allLists[i].listID === currentList){
             allLists[i].active = true;
+            allLists[i].tasks.push(new ToDoItem(taskNum,userTaskName.value,false,userTaskTime.value,userTaskDesc.value));
         }
     }
+    taskNum++;
+
     setStorage();
     clearFields();
     drawPage();
@@ -217,14 +235,48 @@ function remover(theID){
     setStorage();
 }
 
+function changeStuff(theID){
+    for (let i = 0;i< allLists.length;i++){
+        if (allLists[i].active === true){
+            for (x=0;x<allLists[i].tasks.length;x++){
+                if (allLists[i].tasks[x].taskID === theID){
+                    allLists[i].tasks[x].itemName = userTaskName.value;
+                    allLists[i].taks[x].time = userTaskTime.value;
+                    allLists[i].tasks[x].description = userTaskDesc.value;
+                }
+            }
+        }
+    }
+    clearFields();
+    document.getElementById("taskButton").setAttribute("onclick","addTask()");
+    document.getElementById("taskButton").innerHTML = "SUBMIT TASK";
+    setStorage();
+    drawPage();
+}
+
 function editor(theID){
     for (let i = 0;i< allLists.length;i++){
         if (allLists[i].active === true){
             for (x=0;x<allLists[i].tasks.length;x++){
                 if (allLists[i].tasks[x].taskID === theID){
-                    allLists[i].tasks[x].changeName();
-                    allLists[i].tasks[x].changeTime();
-                    allLists[i].tasks[x].changeDesc();
+                    alert("Please enter new information for the task");
+                    document.getElementById("taskButton").setAttribute("onclick",`changeStuff(${theID})`);
+                    document.getElementById("taskButton").innerHTML = "CHANGE TASK";
+                }
+
+            }
+        }
+    }
+    drawPage();
+    setStorage();
+}
+
+function showDesc(theID){
+    for (let i = 0;i< allLists.length;i++){
+        if (allLists[i].active === true){
+            for (x=0;x<allLists[i].tasks.length;x++){
+                if (allLists[i].tasks[x].taskID === theID){
+                    alert(`Description: ${allLists[i].tasks[x].description} \n Due at(in 24 hour time): ${allLists[i].tasks[x].time}`);
                 }
 
             }
@@ -348,5 +400,70 @@ function fillCal(){
     myFunc(theDate.getDay()+1,document.getElementsByTagName("td")[theDate.getDate()]);
 }
 fillCal();
+
+// function checkTime(){
+//     var timeLoop = new Date();
+//     var theHour = timeLoop.getHours();
+//     var theMinutes = timeLoop.getMinutes();
+//     var theDay = timeLoop.getDay();
+//     var theMonth = timeLoop.getMonth();
+//     for (let i = 0; i < allLists.length; i++){
+//         let temp = allLists[i].date.split("/");
+//         switch(temp[0]){
+//             case "January":
+//                 temp[0] = 0;
+//                 break;
+//             case "February":
+//                 temp[0] = 1;
+//                 break;
+//             case "March":
+//                 temp[0] = 2;
+//                 break;
+//             case "April":
+//                 temp[0] = 3;
+//                 break;
+//             case "May":
+//                 temp[0] = 4;
+//                 break;
+//             case "June":
+//                 temp[0] = 5;
+//                 break;
+//             case "July":
+//                 temp[0] = 6;
+//                 break;
+//             case "August":
+//                 temp[0] = 7;
+//                 break;
+//             case "September":
+//                 temp[0] = 8;
+//                 break;
+//             case "October":
+//                 temp[0] = 9;
+//                 break;
+//             case "November":
+//                 temp[0] = 10;
+//                 break;
+//             case "December":
+//                 temp[0] = 11;
+//                 break;
+//         }
+//         if (temp[0] === theMonth){
+//             if (temp[1] === theDay){
+//                 for (let x = 0; x < allLists[i].tasks.length; x++){
+//                     let temp2 = allLists[i].tasks[x].time.split(":");
+//                     if (temp2[0] === theHour){
+//                         if (temp2[1] === theMinutes){
+//                             alert(`Your task of: ${allLists[i].tasks[x].itemName} is due now \n Description: ${allLists[i].tasks[x].description}`);
+//                         }
+//                     }
+//
+//                 }
+//             }
+//         }
+//
+//     }
+//     checkTime();
+// }
+// checkTime();
 
 
