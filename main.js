@@ -241,7 +241,7 @@ function changeStuff(theID){
             for (x=0;x<allLists[i].tasks.length;x++){
                 if (allLists[i].tasks[x].taskID === theID){
                     allLists[i].tasks[x].itemName = userTaskName.value;
-                    allLists[i].taks[x].time = userTaskTime.value;
+                    allLists[i].tasks[x].time = userTaskTime.value;
                     allLists[i].tasks[x].description = userTaskDesc.value;
                 }
             }
